@@ -1,0 +1,5 @@
+com\passerbywhu\web\WelComeController.class
+com\passerbywhu\service\UserService.class
+com\passerbywhu\dao\UserDao$1.class
+com\passerbywhu\dao\UserDao.class
+com\passerbywhu\domain\User.class

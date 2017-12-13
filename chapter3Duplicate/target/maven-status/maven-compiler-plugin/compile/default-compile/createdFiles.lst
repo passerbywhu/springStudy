@@ -1,0 +1,9 @@
+com\passerbywhu\domain\LoginLog.class
+com\passerbywhu\web\LoginCommand.class
+com\passerbywhu\dao\UserDao$1.class
+com\passerbywhu\dao\UserDao.class
+com\passerbywhu\Application.class
+com\passerbywhu\domain\User.class
+com\passerbywhu\service\UserService.class
+com\passerbywhu\web\LoginController.class
+com\passerbywhu\dao\LoginLogDao.class

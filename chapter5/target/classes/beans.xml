@@ -1,0 +1,108 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+">
+    <context:component-scan base-package="com.passerbywhu.dao" resource-pattern="**/*.class">
+        <context:include-filter type="regex" expression="com\.passerbywhu\.dao\.Boss*.*"/>
+    </context:component-scan>
+    <context:component-scan base-package="com.passerbywhu.domain" resource-pattern="**/*.class"/>
+    <context:component-scan base-package="com.passerbywhu.plugin" resource-pattern="**/*.class"/>
+    <bean id="car" class="com.passerbywhu.domain.Car"
+    >
+        <constructor-arg index="0" value="Audi" type="java.lang.String"/>
+        <constructor-arg index="1" value="40"/>
+    </bean>
+    <bean id="car2" class="com.passerbywhu.domain.Car"
+          p:brand="BMW"
+          p:price="50"
+          >
+    </bean>
+    <bean id="carFactory" class="com.passerbywhu.factory.CarFactory"/>
+    <bean id="busCar" factory-bean="carFactory" factory-method="getCar"/>
+    <bean id="staticCar" class="com.passerbywhu.factory.StaticCarFactory" factory-method="getStaticCar"/>
+    <bean id="boss" class="com.passerbywhu.domain.Boss"
+          p:car-ref="car2"
+    />
+    <bean id="bossLi" class="com.passerbywhu.domain.Boss">
+        <property name="car">
+            <ref parent="car"></ref>
+        </property>
+    </bean>
+
+    <bean id="bossZhang" class="com.passerbywhu.domain.Boss">
+        <property name="car">
+            <bean class="com.passerbywhu.domain.Car" p:brand="innerCar"/>
+        </property>
+    </bean>
+
+    <bean id="bigBoss" class="com.passerbywhu.domain.BigBoss">
+        <property name="women">
+            <list>
+                <value>Mary</value>
+                <value>Sherry</value>
+                <value>July</value>
+            </list>
+        </property>
+        <property name="womenStyle">
+            <map>
+                <entry>
+                    <key><value>Marry</value></key>
+                    <value>Lovely</value>
+                </entry>
+                <entry>
+                    <key><value>Sherry</value></key>
+                    <value>Kind</value>
+                </entry>
+                <entry>
+                    <key><value>July</value></key>
+                    <value>Sexy</value>
+                </entry>
+            </map>
+        </property>
+        <property name="companies">
+            <props>
+                <prop key="netease">50%</prop>
+                <prop key="hikvision">50%</prop>
+                <prop key="alibaba">50%</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="bigBossChild" class="com.passerbywhu.domain.BigBoss" parent="bigBoss">
+        <property name="women">
+            <list merge="true">
+                <value>Keiven</value>
+                <value>Jany</value>
+            </list>
+        </property>
+        <property name="womenStyle">
+            <map merge="true">
+                <entry>
+                    <key><value>Keiven</value></key>
+                    <value>Cruel</value>
+                </entry>
+                <entry>
+                    <key><value>Jany</value></key>
+                    <value>Grace</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <util:list id="companyList" list-class="java.util.LinkedList">
+        <value>Netease</value>
+        <value>Hikvision</value>
+        <value>alibaba</value>
+    </util:list>
+</beans>
