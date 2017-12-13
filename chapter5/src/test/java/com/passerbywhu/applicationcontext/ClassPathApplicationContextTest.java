@@ -35,5 +35,10 @@ public class ClassPathApplicationContextTest {
         System.out.println(bigBossChild.getWomenStyle());
         System.out.println(bigBossChild.getCarList());
         System.out.println(bigBossChild.getPlugins());
+
+        BigBoss bigBoss2 = (BigBoss) ct.getBean("bigBoss2");
+        System.out.println(bigBoss2.getBoss().getCar());
+        System.out.println(bigBoss2.getBoss().getCar());
+        System.out.println(bigBoss2.getBoss().getCar());
     }
 }

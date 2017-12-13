@@ -1,7 +1,9 @@
 package com.passerbywhu.dao;
 
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Lazy
+@Repository
 public class BossDao {
 }
