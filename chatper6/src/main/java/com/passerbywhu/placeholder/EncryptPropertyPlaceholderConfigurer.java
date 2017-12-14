@@ -1,10 +1,13 @@
 package com.passerbywhu.placeholder;
 
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class EncryptPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
     private List<String> propertyNameList;
 
