@@ -1,0 +1,21 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <bean id="waiter" class="com.passerbywhu.waiter.NaiveWaiter"/>
+    <bean id="advice" class="com.passerbywhu.advice.BeforeAdvice"/>
+    <bean id="advisor" class="com.passerbywhu.advisor.GreetingAdvisor"
+          p:advice-ref="advice"/>
+    <bean id="proxyWaiter" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:target-ref="waiter"
+          p:interceptorNames="advisor"/>
+    <bean id="afterAdvice" class="com.passerbywhu.advice.AfterAdvice"/>
+    <bean id="serveAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor"
+          p:advice-ref="afterAdvice"
+          p:pattern=".*serve.*"/>
+    <bean id="regexWaiter" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:target-ref="waiter"
+          p:interceptorNames="serveAdvisor"/>
+</beans>
