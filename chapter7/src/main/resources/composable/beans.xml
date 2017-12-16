@@ -1,0 +1,15 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <bean id="pointCut" class="com.passerbywhu.composable.GreetingComposablePointCut"/>
+    <bean id="target" class="com.passerbywhu.waiter.NaiveWaiter"/>
+    <bean id="advice" class="com.passerbywhu.advice.BeforeAdvice"/>
+    <bean id="advisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
+          p:pointcut-ref="pointCut"
+          p:advice-ref="advice"/>
+    <bean id="proxyWaiter" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:target-ref="target"
+          p:interceptorNames="advisor"/>
+</beans>

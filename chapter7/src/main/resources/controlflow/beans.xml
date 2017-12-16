@@ -1,0 +1,24 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <bean id="waiter" class="com.passerbywhu.waiter.NaiveWaiter"/>
+    <bean id="pointCut" class="org.springframework.aop.support.ControlFlowPointcut">
+        <constructor-arg name="clazz">
+            <value>com.passerbywhu.controlflow.WaiterDelegate</value>
+        </constructor-arg>
+        <constructor-arg name="methodName">
+            <value>service</value>
+        </constructor-arg>
+    </bean>
+    <bean id="advice" class="com.passerbywhu.advice.BeforeAdvice"/>
+
+    <bean id="advisor" class="org.springframework.aop.support.DefaultPointcutAdvisor"
+          p:pointcut-ref="pointCut"
+          p:advice-ref="advice"/>
+
+    <bean id="controlWaiter" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:target-ref="waiter"
+          p:interceptorNames="advisor"/>
+</beans>

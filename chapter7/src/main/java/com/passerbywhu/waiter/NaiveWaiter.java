@@ -5,14 +5,14 @@ import javax.swing.plaf.TextUI;
 public class NaiveWaiter implements Waiter{
     public void greetTo(String name) {
         System.out.println("greet to "+name+"...");
-        privateGreetTo(name);
+//        privateGreetTo(name);
     }
 
     public void serveTo(String name){
         if (name == null || name.trim().equals("")) {
             throw new IllegalArgumentException("I don't want to serve to person with empty name");
         }
-        System.out.println("serving "+name+"...");
+        System.out.println("serve to "+name+"...");
     }
 
     public void privateGreetTo(String name) {
