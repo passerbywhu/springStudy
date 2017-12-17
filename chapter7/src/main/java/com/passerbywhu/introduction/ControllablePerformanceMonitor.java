@@ -7,9 +7,19 @@ import org.springframework.aop.support.DelegatingIntroductionInterceptor;
 public class ControllablePerformanceMonitor extends DelegatingIntroductionInterceptor implements Monitorable {
     private static ThreadLocal<Boolean> monitorStatus = new ThreadLocal<Boolean>();
 
+    public ControllablePerformanceMonitor() {
+        super();
+        System.out.println("controllablePerformanceMonitor init");
+    }
+
     @Override
     public void setMonitorActive(boolean active) {
         monitorStatus.set(active);
+    }
+
+    @Override
+    public boolean getMonitorActive() {
+        return monitorStatus.get();
     }
 
     @Override

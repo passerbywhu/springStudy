@@ -5,6 +5,7 @@ import com.passerbywhu.introduction.Monitorable;
 import com.passerbywhu.waiter.NaiveWaiter;
 import com.passerbywhu.waiter.Waiter;
 import org.springframework.aop.framework.ProxyFactory;
+import org.springframework.aop.support.DefaultIntroductionAdvisor;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.annotations.Test;
 
@@ -18,6 +19,16 @@ public class PerformanceTest {
         ((Monitorable) waiter).setMonitorActive(true);
         waiter.greetTo("Ma");
         waiter.serveTo("Ma");
+
+        Waiter waiter2 = (Waiter) ctx.getBean("monitorableWaiter2");
+        System.out.println(waiter == waiter2);
+        ((Monitorable) waiter2).setMonitorActive(false);
+//        System.out.println(((Monitorable) waiter2).getMonitorActive());
+        waiter2.greetTo("xxx");
+        waiter2.serveTo("xxx");
+        ((Monitorable) waiter2).setMonitorActive(true);
+        waiter2.greetTo("xxx");
+        waiter2.serveTo("xxx");
     }
     @Test
     public void test() {
@@ -42,5 +53,17 @@ public class PerformanceTest {
         monitorWaiter.setMonitorActive(true);
         ((Waiter) monitorWaiter).greetTo("Rein");
         ((Waiter) monitorWaiter).serveTo("Rein");
+
+        DefaultIntroductionAdvisor introductionAdvisor = new DefaultIntroductionAdvisor(monitor);
+        ProxyFactory factory2 = new ProxyFactory();
+        factory2.addAdvisor(introductionAdvisor);
+        factory2.setTarget(waiter);
+        factory2.setProxyTargetClass(true);
+        Waiter waiter2 = (Waiter) factory2.getProxy();
+        waiter2.greetTo("xxx");
+        waiter2.serveTo("xxx");
+        ((Monitorable) waiter2).setMonitorActive(true);
+        waiter2.greetTo("xxx");
+        waiter2.serveTo("xxx");
     }
 }

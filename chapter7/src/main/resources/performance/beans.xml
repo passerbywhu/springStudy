@@ -10,4 +10,14 @@
           p:target-ref="waiter"
           p:interceptorNames="advice"
           p:proxyTargetClass="true"/>
+    <bean id="introductionAdvisor" class="org.springframework.aop.support.DefaultIntroductionAdvisor">
+        <constructor-arg>
+            <ref bean="advice"/>
+        </constructor-arg>
+    </bean>
+    <bean id="monitorableWaiter2" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="introductionAdvisor"
+          p:target-ref="waiter"
+          p:proxyTargetClass="true"/>
+
 </beans>
