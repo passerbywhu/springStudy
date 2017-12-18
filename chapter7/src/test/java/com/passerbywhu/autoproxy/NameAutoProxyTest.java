@@ -11,6 +11,5 @@ public class NameAutoProxyTest {
         Waiter waiter = (Waiter) ctx.getBean("waiter");
         waiter.greetTo("xxx");
         waiter.serveTo("xxx");
-
     }
 }
